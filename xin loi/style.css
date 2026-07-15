@@ -1,0 +1,243 @@
+/* ============================================================
+   Matrix Apology — style.css
+   Font: JetBrains Mono | Palette: #ff69b4 neon pink
+   ============================================================ */
+
+/* ---------- Reset & base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  color: #ff69b4;
+}
+
+/* ---------- Matrix canvas (full-screen background) ---------- */
+#matrix-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+}
+
+/* ---------- Utility ---------- */
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Message box — glassmorphism ---------- */
+#message-box {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Glassmorphism card */
+#message-box > * {
+  width: min(680px, 92vw);
+}
+
+.box-header {
+  background: rgba(255, 105, 180, 0.08);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid #ff69b4;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ff69b4;
+  text-shadow: 0 0 8px #ff69b4, 0 0 20px #ff69b4;
+  box-shadow: 0 0 18px rgba(255, 105, 180, 0.3);
+}
+
+.typed-text {
+  background: rgba(10, 0, 5, 0.75);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid #ff69b4;
+  padding: 22px 22px 18px;
+  font-size: 0.92rem;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #ff69b4;
+  text-shadow: 0 0 6px rgba(255, 105, 180, 0.7);
+  box-shadow:
+    0 0 18px rgba(255, 105, 180, 0.25),
+    inset 0 0 30px rgba(255, 105, 180, 0.04);
+  min-height: 240px;
+}
+
+/* ---------- Button container ---------- */
+#btn-container {
+  display: flex !important;  /* override .hidden when shown */
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: rgba(10, 0, 5, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #ff69b4;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 18px 22px 20px;
+  box-shadow: 0 0 18px rgba(255, 105, 180, 0.25);
+}
+
+/* When hidden, override back */
+#btn-container.hidden {
+  display: none !important;
+}
+
+/* Shared button base */
+#btn-yes,
+#btn-no {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 11px 26px;
+  border-radius: 6px;
+  border: 1px solid #ff69b4;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Yes button */
+#btn-yes {
+  background: rgba(255, 105, 180, 0.12);
+  color: #ff69b4;
+  text-shadow: 0 0 8px #ff69b4;
+  box-shadow: 0 0 12px rgba(255, 105, 180, 0.4), inset 0 0 8px rgba(255, 105, 180, 0.05);
+}
+#btn-yes:hover {
+  background: rgba(255, 105, 180, 0.22);
+  box-shadow: 0 0 22px rgba(255, 105, 180, 0.7), inset 0 0 12px rgba(255, 105, 180, 0.1);
+  transform: scale(1.04);
+}
+
+/* No button */
+#btn-no {
+  background: rgba(255, 50, 50, 0.08);
+  color: #ff4444;
+  border-color: #ff4444;
+  text-shadow: 0 0 8px #ff4444;
+  box-shadow: 0 0 12px rgba(255, 50, 50, 0.3);
+  position: fixed; /* will be moved by JS on hover/touch */
+}
+#btn-no:hover {
+  box-shadow: 0 0 22px rgba(255, 50, 50, 0.6);
+}
+
+/* ---------- Blinking cursor ---------- */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.blink {
+  display: inline-block;
+  animation: blink 1s step-start infinite;
+}
+
+/* ---------- Fade-in ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Thanks overlay ---------- */
+#thanks-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s ease forwards;
+}
+
+#thanks-text {
+  font-size: clamp(1.1rem, 4vw, 1.8rem);
+  font-weight: 700;
+  text-align: center;
+  color: #ff69b4;
+  padding: 0 24px;
+  text-shadow:
+    0 0 10px #ff69b4,
+    0 0 30px #ff69b4,
+    0 0 60px #ff69b4;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { text-shadow: 0 0 10px #ff69b4, 0 0 30px #ff69b4, 0 0 60px #ff69b4; }
+  50%       { text-shadow: 0 0 20px #ff69b4, 0 0 60px #ff69b4, 0 0 100px #ff69b4; }
+}
+
+/* ---------- Flying hearts ---------- */
+#hearts-container {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  bottom: -60px;
+  font-size: 1.6rem;
+  animation: flyUp linear forwards;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px #ff69b4) drop-shadow(0 0 14px #ff69b4);
+  will-change: transform, opacity;
+}
+
+@keyframes flyUp {
+  0%   { opacity: 0;   transform: translateY(0)   rotate(0deg)   scale(0.6); }
+  10%  { opacity: 1; }
+  80%  { opacity: 0.9; }
+  100% { opacity: 0;   transform: translateY(-100vh) rotate(360deg) scale(1.2); }
+}
+
+/* ---------- Particle burst ---------- */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particleFade linear forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes particleFade {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.2); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 500px) {
+  .box-header { font-size: 0.75rem; padding: 8px 14px; }
+  .typed-text  { font-size: 0.78rem; padding: 14px 14px 12px; min-height: 180px; }
+  #btn-container { padding: 14px 14px 16px; gap: 12px; }
+  #btn-yes, #btn-no { font-size: 0.8rem; padding: 10px 18px; }
+}

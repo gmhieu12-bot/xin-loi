@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matrix Apology</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- JetBrains Mono từ Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Matrix Rain Canvas -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- Hộp tin nhắn chính -->
+  <div id="message-box" class="hidden">
+    <div class="box-header">
+      <span class="blink">▌</span> SYSTEM MESSAGE
+    </div>
+    <div id="typed-text" class="typed-text"></div>
+
+    <!-- Hai nút xuất hiện sau khi gõ xong -->
+    <div id="btn-container" class="hidden">
+      <button id="btn-yes">❤️ Tha lỗi cho anh</button>
+      <button id="btn-no">💔 Chưa đâu</button>
+    </div>
+  </div>
+
+  <!-- Lớp phủ cảm ơn -->
+  <div id="thanks-overlay" class="hidden">
+    <p id="thanks-text">Cảm ơn em... Anh sẽ không làm em buồn nữa ❤️</p>
+  </div>
+
+  <!-- Container tim bay -->
+  <div id="hearts-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
